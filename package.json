@@ -1,0 +1,108 @@
+{
+  "name": "@pixi-wallet/yjs-storage",
+  "version": "0.0.1",
+  "description": "yjs-storage",
+  "exports": {
+    ".": {
+      "import": "./dist/esm/index.js",
+      "require": "./dist/cjs/index.js",
+      "types": "./dist/types/index.d.ts"
+    },
+    "./*.js": {
+      "import": "./dist/esm/*.js",
+      "require": "./dist/cjs/*.js",
+      "types": "./dist/types/*.d.ts"
+    },
+    "./*": {
+      "import": "./dist/esm/*.js",
+      "require": "./dist/cjs/*.js",
+      "types": "./dist/types/*.d.ts"
+    }
+  },
+  "typesVersions": {
+    "*": {
+      "index.d.ts": [
+        "dist/types/index.d.ts"
+      ],
+      "*": [
+        "dist/types/*"
+      ]
+    }
+  },
+  "files": [
+    "/dist"
+  ],
+  "scripts": {
+    "test": "jest",
+    "build": "npm run dist",
+    "dev": "tsc --watch --module commonjs --outDir ./dist/cjs/ --sourceMap",
+    "dist": "npm run dist:prep && npm run dist:src && npm run dist:cjs && npm run dist:esm && npm run dist:types ",
+    "dist:cjs": "tsc --project ./dist/ --module commonjs --outDir ./dist/cjs/ --sourceMap",
+    "dist:esm": "tsc --project ./dist/ --module es2020 --outDir ./dist/esm/ --sourceMap",
+    "dist:types": "tsc --project ./dist/ --emitDeclarationOnly --declaration --declarationDir ./dist/types/",
+    "dist:prep": "copyfiles --error tsconfig.json ./dist/",
+    "dist:src": "copyfiles --error --up 1 \"./src/**/*\" ./dist/src/"
+  },
+  "jest": {
+    "transform": {
+      ".(ts|tsx)": "ts-jest"
+    },
+    "testRegex": "(/__tests__/.*|\\.(test|spec))\\.(ts|tsx|js)$",
+    "testPathIgnorePatterns": [
+      "<rootDir>/dist/",
+      "<rootDir>/node_modules/",
+      "<rootDir>/.history/"
+    ],
+    "testEnvironment": "node",
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js"
+    ],
+    "globals": {
+      "ts-jest": {
+        "useESM": true
+      }
+    },
+    "preset": "ts-jest/presets/default-esm"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mkabanau/yjs-storage.git"
+  },
+  "keywords": [
+    "ci",
+    "cd",
+    "ts",
+    "registry"
+  ],
+  "author": "maksim",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mkabanau/yjs-storage/issues"
+  },
+  "homepage": "https://github.com/mkabanau/yjs-storage#readme",
+  "devDependencies": {
+    "@types/jest": "^29.0.0",
+    "copyfiles": "^2.4.1",
+    "fake-indexeddb": "^4.0.1",
+    "jest": "^28.1.3",
+    "localstorage-polyfill": "^1.0.1",
+    "ts-jest": "^28.0.8",
+    "typescript": "^4.8.2",
+    "@types/node": "^18.15.11"
+  },
+  "publishConfig": {
+    "@pixi-wallet:registry": "https://npm.pkg.github.com"
+  },
+  "dependencies": {
+    "@pixi-wallet/components": "^0.0.1",
+    "@mkabanau/core": "^0.11.4-test4",
+    "@mkabanau/default-plugins": "^0.11.4-test1",
+    "@mkabanau/ucans": "^0.11.4-test1",
+    "js-base64": "^3.7.5",
+    "uint8arrays": "3.0.0",
+    "y-indexeddb": "^9.0.10",
+    "yjs": "^13.6.0"
+  }
+}
